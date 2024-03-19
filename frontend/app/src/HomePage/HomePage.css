@@ -1,0 +1,18 @@
+.main-bg {
+    background-color: white;
+}
+
+.cover-container {
+    display: flex;
+    align-items: center;
+}
+
+.cover-text-container {
+    width: 750px;
+    max-height: 400px;
+    margin: auto;
+}
+
+.buttons-bg {
+    background-color: #4D6A6D !important;
+}

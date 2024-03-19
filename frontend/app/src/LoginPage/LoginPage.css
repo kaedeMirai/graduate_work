@@ -1,0 +1,19 @@
+.logo {
+    width: 330px;
+    background-color: #2F4858;
+}
+
+.form-container {
+    display: flex;
+    align-items: center;
+}
+
+.form {
+    width: 330px;
+    max-height: 310px;
+    margin: auto;
+}
+
+.buttons-bg {
+    background-color: #4D6A6D !important;
+}

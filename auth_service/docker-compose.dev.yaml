@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  auth_service:
+    container_name: auth_container
+    environment:
+      RUN_MODE: dev
+    ports:
+      - "8000:8000"
+    networks:
+      - auth_api_net
+    volumes:
+      - ./src/tests/:/app/tests/
+#      - ./src/api/:/app/api/
+#      - ./src/core/:/app/core/
+#      - ./src/db/:/app/exceptions/
+#      - ./src/models/:/app/models/
+#      - ./src/scripts/:/app/scripts/
+#      - ./src/services/:/app/services/
+
+  postgres:
+    ports:
+      - "5433:5432"
+
+  redis:
+    ports:
+      - "6379:6379"

@@ -1,0 +1,23 @@
+FROM python:3.11
+
+WORKDIR /service
+ENV PYTHONPATH=/service
+
+RUN pip install --upgrade pip \
+    && pip install --no-cache-dir poetry
+
+COPY ./poetry.lock .
+COPY ./pyproject.toml .
+
+RUN poetry config virtualenvs.create false \
+    && poetry install --no-cache --no-root --without test
+
+COPY ./watch_together ./watch_together
+
+COPY ./Makefile .
+COPY ./README.md .
+COPY ./docker/docker-entrypoint.sh ./docker/
+
+RUN chmod ugo+x /service/docker/docker-entrypoint.sh
+
+ENTRYPOINT ["/service/docker/docker-entrypoint.sh"]

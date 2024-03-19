@@ -1,0 +1,38 @@
+name: Running Python Linters
+run-name: Linter on ${{ github.actor }} commit
+on: [push]
+
+env:
+  DEFAULT_PYTHON: '3.11'
+
+jobs:
+  linters:
+    name: linters
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ env.DEFAULT_PYTHON }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.DEFAULT_PYTHON }}
+
+      - name: Install poetry
+        uses: snok/install-poetry@v1
+
+      - name: Install dependencies
+        run: |
+          poetry install --no-root --all-extras --with dev --without test
+          
+      - name: run Flake8
+        run: poetry run flake8 watch_together/app
+
+      - name: run Black
+        run: poetry run black  --check watch_together/app

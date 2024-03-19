@@ -1,0 +1,39 @@
+version: "3.1"
+
+services:
+
+  watch_together_service:
+    image: watch_together_service
+    container_name: watch_together_service
+    env_file:
+      - .env
+    ports:
+      - "8090:8080"
+    networks:
+      - online_cinema
+    volumes:
+      - .:/service
+
+  cache:
+    image: redis:6.2.14
+    container_name: redis
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - online_cinema
+
+  mongo:
+    image: mongo
+    restart: always
+    container_name: mongo-container
+    env_file:
+      - .env
+    ports:
+      - "27017:27017"
+    networks:
+      - online_cinema
+
+networks:
+  online_cinema:
+    external: true

@@ -1,0 +1,28 @@
+version: "3.1"
+
+services:
+
+  watch_together_service:
+    image: watch_together_service-dev
+    container_name: watch_together_service
+    env_file:
+      - .env
+    ports:
+      - "8090:8080"
+    networks:
+      - online_cinema
+    volumes:
+      - .:/service
+
+  mongo:
+    image: mongo
+    restart: always
+    container_name: mongo-container
+    env_file:
+      - .env
+    ports:
+      - "27017:27017"
+
+networks:
+  online_cinema:
+    external: true
